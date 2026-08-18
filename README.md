@@ -1,6 +1,6 @@
 Self-Supervised Representations for Sample-Efficient RL
 
-Question: Keeping encoder, algorithm and environment the same, which self-supervised algorithm is the most effective in improving results and preventing representation collapse?
+Question: Keeping encoder, algorithm and environment the same, which self-supervised loss function is the most effective in improving results and preventing representation collapse?
 
 Algorithm: Rainbow-style DQN
 env: MinAtar (possibly Atari-100k if no hardware issues)
