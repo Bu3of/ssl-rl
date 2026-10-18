@@ -1,0 +1,22 @@
+# Core
+torch>=2.1
+numpy>=1.24
+
+# Environments
+minatar @ git+https://github.com/kenjyoung/MinAtar.git
+gymnasium>=0.29
+
+# Atari-100k (Phase 1 stretch goal) -- also run `AutoROM --accept-license` once after install
+gymnasium[atari]>=0.29
+autorom[accept-rom-license]
+opencv-python-headless
+
+# Evaluation / diagnostics
+# note: NOT rliable -- its 1.2.0 release is broken against arch>=8.0 (needed for arch itself to
+# import under pandas 3.x), so diagnostics/bootstrap_ci.py implements the same IQM + percentile
+# bootstrap CI method directly instead (see that file's docstring)
+matplotlib>=3.7
+scipy>=1.10
+
+# Config / experiment management
+pyyaml>=6.0
