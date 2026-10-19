@@ -5,6 +5,23 @@
 ![Status](https://img.shields.io/badge/status-early%20development-yellow)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
+## Key findings so far
+
+MinAtar Breakout, 100k environment steps, 3 seeds per method (2 for the ablations). Bars are interquartile means with 95% bootstrap confidence intervals.
+
+![Return and effective rank for baseline, SPR, CURL and iQRL](docs/main_comparison.png)
+
+- **CURL collapses.** Effective rank drops to 12.1 [9.8, 14.7], against 65.7 [60.1, 69.9] for the no-auxiliary-loss baseline, and it has the lowest return (3.75).
+- **Quantization (iQRL-style FSQ) keeps the most rank**: 73.3 [70.6, 77.6], with the highest return (5.63). Its return interval overlaps the baseline's, so the return gain isn't established yet.
+- **SPR is indistinguishable from the baseline** on both measures.
+- **In SPR, augmentation does the anti-collapse work.** Removing augmentation drops rank to 52.4 [50.3, 54.5]; removing the momentum target doesn't (69.7 [68.3, 71.1]).
+
+These are early results from one game with few seeds and no hyperparameter search. The Limitations section of `notebooks/phase1_phase2_results.ipynb` covers what they can and can't support.
+
+## Reproducing the results
+
+`python scripts/overnight_pipeline.py` runs every training run behind the numbers above (several hours; each stage resumes from its checkpoint). It writes `notebooks/_overnight_results.json`, which `notebooks/phase1_phase2_results.ipynb` loads to produce the figure and the summary table.
+
 ## Motivation
 
 Pixel-based RL agents need a good encoder, and reward alone is far too sparse a signal to train one quickly at low sample budgets (e.g. 100k environment steps). The standard fix is to add a self-supervised auxiliary loss to the encoder — but every self-supervised objective risks *representation collapse*, where the encoder settles on a trivial, information-free solution that technically satisfies the loss.
